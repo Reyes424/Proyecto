@@ -21,6 +21,8 @@
 
 -Integración de las dos temáticas
 
+-Código del juego 
+
 ## Introducción al ahorcado:
 
 El ahorcado es un juego clásico en el que una personas trata de adivinar una palabra en específico por medio de escribir letras sobre una determinada cantidad de líneas dependiendo de la palabra a descubrir, la cual ha de ser elegida por una segunda persona que según el jugador vaya avanzando se encargará de indicar al jugador si es que acieta o no a la tarea de adivinar la palabra esto por medio de dibujar una persona ahorcada en un arból mediante una representación de palitos, todo esto hecho sobre una hoja; sin embargo si el jugador no llega a descubrir por completo la palabra enigma antes de que se complete el dibujo del ahorcado, se dará por perdido el juego.
@@ -220,6 +222,44 @@ Diagrama de flujo:
 ## Integración de las dos temáticas:
 
 Según la dificultad se presentarán distintas temáticas de palabras, según el lore. Fácil: Nombres de personajes, Medio: Lugares de los capítulos, Difícil: Temáticas y elementos del lore.
+
+## Código del juego:
+
+Es el código total del juego del ahorcado. 
+
+Abajo se hace muestra de la parte del código asignada para la pantalla del jugador y las lineas de texto correspondientes a los datos que ingrese el Jugador:
+
+
+
+    print("\n¡Bienvenido al juego del Ahorcado! ")
+    print(f"Dificultad seleccionada: {dificultad.capitalize()}")
+
+    while intentos_restantes > 0:
+        mostrar_tablero(palabra_oculta, letras_encontradas)
+        letra = input("Introduce una letra: ").upper()
+
+        if not letra.isalpha() or len(letra) != 1:
+            print("Ingresa solo UNA letra válida.")
+            continue
+
+        if letra in letras_encontradas:
+            print("Ya usaste esta letra. Elige otra.")
+            continue
+
+        if letra in palabra_oculta:
+            letras_encontradas.append(letra)
+            if all(l.upper() in letras_encontradas or l == "_" for l in palabra_oculta):
+                print(f"\n¡Has ganado! La palabra era: {palabra_oculta}")
+                return
+        else:
+            intentos_restantes -= 1
+            print(f"Letra incorrecta. Intentos restantes: {intentos_restantes}")
+
+    print(f"Has perdido. La palabra oculta era: {palabra_oculta}")
+
+jugar_ahorcado()
+
+
 
 
 
